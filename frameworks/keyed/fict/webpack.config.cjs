@@ -1,14 +1,14 @@
 const path = require('path')
 
 module.exports = {
-  entry: './src/main.tsx',
+  entry: './src/main.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
     clean: true,
   },
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    extensions: ['.jsx', '.js', '.tsx', '.ts'],
   },
   module: {
     rules: [
