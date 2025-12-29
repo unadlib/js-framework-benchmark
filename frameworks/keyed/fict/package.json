@@ -2,15 +2,14 @@
   "name": "js-framework-benchmark-fict",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "main": "dist/main.js",
   "js-framework-benchmark": {
     "frameworkVersionFromPackage": "fict",
     "frameworkHomeURL": "https://github.com/fictjs/fict"
   },
   "scripts": {
-    "dev": "vite --open /frameworks/keyed/fict/index.html",
-    "build-prod": "vite build"
+    "dev": "webpack serve --config webpack.config.cjs --mode development",
+    "build-prod": "webpack --config webpack.config.cjs --mode production"
   },
   "author": "Michael Lin",
   "license": "MIT",
@@ -24,14 +23,17 @@
     "@fictjs/runtime": "file:../../../../packages/runtime"
   },
   "devDependencies": {
-    "@fictjs/compiler": "file:../../../../packages/compiler",
-    "@fictjs/vite-plugin": "file:../../../../packages/vite-plugin",
-    "vite": "^7.2.7"
+    "@babel/core": "^7.26.0",
+    "@fictjs/babel-preset": "file:../../../../packages/babel-preset",
+    "babel-loader": "^9.2.1",
+    "typescript": "^5.9.3",
+    "webpack": "^5.97.1",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.0"
   },
   "overrides": {
     "fict": "file:../../../../packages/fict",
     "@fictjs/runtime": "file:../../../../packages/runtime",
-    "@fictjs/vite-plugin": "file:../../../../packages/vite-plugin",
-    "@fictjs/compiler": "file:../../../../packages/compiler"
+    "@fictjs/babel-preset": "file:../../../../packages/babel-preset"
   }
 }
