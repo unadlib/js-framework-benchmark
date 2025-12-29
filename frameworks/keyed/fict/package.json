@@ -1,0 +1,37 @@
+{
+  "name": "js-framework-benchmark-fict",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "main": "dist/main.js",
+  "js-framework-benchmark": {
+    "frameworkVersionFromPackage": "fict",
+    "frameworkHomeURL": "https://github.com/fictjs/fict"
+  },
+  "scripts": {
+    "dev": "vite --open /frameworks/keyed/fict/index.html",
+    "build-prod": "vite build"
+  },
+  "author": "Michael Lin",
+  "license": "MIT",
+  "homepage": "https://github.com/krausest/js-framework-benchmark",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krausest/js-framework-benchmark.git"
+  },
+  "dependencies": {
+    "fict": "file:../../../../packages/fict",
+    "@fictjs/runtime": "file:../../../../packages/runtime"
+  },
+  "devDependencies": {
+    "@fictjs/compiler": "file:../../../../packages/compiler",
+    "@fictjs/vite-plugin": "file:../../../../packages/vite-plugin",
+    "vite": "^7.2.7"
+  },
+  "overrides": {
+    "fict": "file:../../../../packages/fict",
+    "@fictjs/runtime": "file:../../../../packages/runtime",
+    "@fictjs/vite-plugin": "file:../../../../packages/vite-plugin",
+    "@fictjs/compiler": "file:../../../../packages/compiler"
+  }
+}
