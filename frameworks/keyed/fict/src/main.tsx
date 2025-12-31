@@ -1,77 +1,65 @@
-import { $state, render } from 'fict'
+import { $state, createSelector, render } from "fict";
 
 const adjectives = [
-  'pretty',
-  'large',
-  'big',
-  'small',
-  'tall',
-  'short',
-  'long',
-  'handsome',
-  'plain',
-  'quaint',
-  'clean',
-  'elegant',
-  'easy',
-  'angry',
-  'crazy',
-  'helpful',
-  'mushy',
-  'odd',
-  'unsightly',
-  'adorable',
-  'important',
-  'inexpensive',
-  'cheap',
-  'expensive',
-  'fancy',
-]
+  "pretty",
+  "large",
+  "big",
+  "small",
+  "tall",
+  "short",
+  "long",
+  "handsome",
+  "plain",
+  "quaint",
+  "clean",
+  "elegant",
+  "easy",
+  "angry",
+  "crazy",
+  "helpful",
+  "mushy",
+  "odd",
+  "unsightly",
+  "adorable",
+  "important",
+  "inexpensive",
+  "cheap",
+  "expensive",
+  "fancy",
+];
 
-const colours = [
-  'red',
-  'yellow',
-  'blue',
-  'green',
-  'pink',
-  'brown',
-  'purple',
-  'brown',
-  'white',
-  'black',
-  'orange',
-]
+const colours = ["red", "yellow", "blue", "green", "pink", "brown", "purple", "brown", "white", "black", "orange"];
 
 const nouns = [
-  'table',
-  'chair',
-  'house',
-  'bbq',
-  'desk',
-  'car',
-  'pony',
-  'cookie',
-  'sandwich',
-  'burger',
-  'pizza',
-  'mouse',
-  'keyboard',
-]
+  "table",
+  "chair",
+  "house",
+  "bbq",
+  "desk",
+  "car",
+  "pony",
+  "cookie",
+  "sandwich",
+  "burger",
+  "pizza",
+  "mouse",
+  "keyboard",
+];
 
-let nextId = 1
+let nextId = 1;
 function random(max: number) {
-  return Math.round(Math.random() * 1000) % max
+  return Math.round(Math.random() * 1000) % max;
 }
 
 function buildData(count: number) {
-  const data = new Array(count)
+  const data = new Array(count);
   for (let i = 0; i < count; i++) {
     data[i] = {
       id: nextId++,
       label: `${adjectives[random(adjectives.length)]} ${colours[random(colours.length)]} ${nouns[random(nouns.length)]}`,
-    }
+    };
   }
-  return data
+  return data;
 }
 
 function Button(props: any) {
@@ -81,56 +69,57 @@ function Button(props: any) {
         {props.text}
       </button>
     </div>
-  )
+  );
 }
 
 function App() {
-  let data: { id: number; label: string }[] = $state([])
-  let selected: number | null = $state(null)
+  let data: { id: number; label: string }[] = $state([]);
+  let selected: number | null = $state(null);
+  const isSelected = createSelector(() => selected);
 
   const run = () => {
-    data = buildData(1000)
-    selected = null
-  }
+    data = buildData(1000);
+    selected = null;
+  };
 
   const runLots = () => {
-    data = buildData(10000)
-    selected = null
-  }
+    data = buildData(10000);
+    selected = null;
+  };
 
   const add = () => {
-    data = [...data, ...buildData(1000)]
-  }
+    data = [...data, ...buildData(1000)];
+  };
 
   const update = () => {
-    data = data.map((row, i) => (i % 10 === 0 ? { ...row, label: row.label + ' !!!' } : row))
-  }
+    data = data.map((row, i) => (i % 10 === 0 ? { ...row, label: row.label + " !!!" } : row));
+  };
 
   const swapRows = () => {
-    const list = data
-    if (list.length <= 998) return
-    const copy = list.slice()
-    const tmp = copy[1]
-    copy[1] = copy[998]
-    copy[998] = tmp
-    data = copy
-  }
+    const list = data;
+    if (list.length <= 998) return;
+    const copy = list.slice();
+    const tmp = copy[1];
+    copy[1] = copy[998];
+    copy[998] = tmp;
+    data = copy;
+  };
 
   const clear = () => {
-    data = []
-    selected = null
-  }
+    data = [];
+    selected = null;
+  };
 
   const remove = (id: number) => {
-    data = data.filter(row => row.id !== id)
+    data = data.filter((row) => row.id !== id);
     if (selected === id) {
-      selected = null
+      selected = null;
     }
-  }
+  };
 
   const select = (id: number) => {
-    selected = id
-  }
+    selected = id;
+  };
 
   return (
     <div class="container">
@@ -153,8 +142,8 @@ function App() {
       </div>
       <table class="table table-hover table-striped test-data">
         <tbody>
-          {data.map(row => (
-            <tr key={row.id} class={selected === row.id ? 'danger' : ''}>
+          {data.map((row) => (
+            <tr key={row.id} class={isSelected(row.id) ? "danger" : ""}>
               <td class="col-md-1">{row.id}</td>
               <td class="col-md-4">
                 <a onClick={() => select(row.id)}>{row.label}</a>
@@ -171,7 +160,12 @@ function App() {
       </table>
       <span class="preloadicon glyphicon glyphicon-remove" aria-hidden="true"></span>
     </div>
-  )
+  );
 }
 
-render(() => <App />, document.getElementById('main'))
+const app = document.getElementById("main");
+if (app) {
+  render(() => <App />, app);
+}
+
+export default App;

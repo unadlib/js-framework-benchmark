@@ -1,24 +1,27 @@
-const path = require('path')
+const path = require("path");
 
 module.exports = {
-  entry: './src/main.jsx',
+  entry: "./src/main.tsx",
   output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
+    path: path.resolve(__dirname, "dist"),
+    filename: "main.js",
     clean: true,
   },
   resolve: {
-    extensions: ['.jsx', '.js', '.tsx', '.ts'],
+    extensions: [".jsx", ".js", ".tsx", ".ts"],
+    alias: {
+      "@fictjs/runtime$": "@fictjs/runtime/slim",
+    },
   },
   module: {
     rules: [
       {
         test: /\.[jt]sx?$/,
-        include: path.resolve(__dirname, 'src'),
+        include: path.resolve(__dirname, "src"),
         use: {
-          loader: 'babel-loader',
+          loader: "babel-loader",
           options: {
-            presets: ['@fictjs/babel-preset'],
+            presets: ["@fictjs/babel-preset"],
           },
         },
       },
@@ -29,13 +32,13 @@ module.exports = {
       directory: path.resolve(__dirname),
     },
     devMiddleware: {
-      publicPath: '/dist/',
+      publicPath: "/dist/",
     },
     port: 3000,
     hot: true,
     client: {
-      logging: 'warn',
+      logging: "warn",
     },
   },
   devtool: false,
-}
+};
