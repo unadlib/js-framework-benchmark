@@ -1,4 +1,4 @@
-import { $state, createSelector, render } from "fict";
+import { $state, render } from "fict";
 
 const adjectives = [
   "pretty",
@@ -75,8 +75,6 @@ function Button(props: any) {
 function App() {
   let data: { id: number; label: string }[] = $state([]);
   let selected: number | null = $state(null);
-  const isSelected = createSelector(() => selected);
-
   const run = () => {
     data = buildData(1000);
     selected = null;
@@ -143,7 +141,7 @@ function App() {
       <table class="table table-hover table-striped test-data">
         <tbody>
           {data.map((row) => (
-            <tr key={row.id} class={isSelected(row.id) ? "danger" : ""}>
+            <tr key={row.id} class={row.id === selected ? "danger" : ""}>
               <td class="col-md-1">{row.id}</td>
               <td class="col-md-4">
                 <a onClick={() => select(row.id)}>{row.label}</a>
