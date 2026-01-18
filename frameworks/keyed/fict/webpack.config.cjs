@@ -9,9 +9,6 @@ module.exports = {
   },
   resolve: {
     extensions: [".jsx", ".js", ".tsx", ".ts"],
-    alias: {
-      "@fictjs/runtime$": "@fictjs/runtime/slim",
-    },
   },
   module: {
     rules: [
