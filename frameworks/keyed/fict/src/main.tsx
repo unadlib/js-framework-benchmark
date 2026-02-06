@@ -62,6 +62,23 @@ function buildData(count: number) {
   return data;
 }
 
+function updateEvery10Rows(rows: { id: number; label: string }[]) {
+  const next = rows.slice();
+  for (let i = 0, len = next.length; i < len; i += 10) {
+    const row = next[i]!;
+    next[i] = { id: row.id, label: row.label + " !!!" };
+  }
+  return next;
+}
+
+function removeById(rows: { id: number; label: string }[], id: number) {
+  const index = rows.findIndex((row) => row.id === id);
+  if (index < 0) return rows;
+  const next = rows.slice();
+  next.splice(index, 1);
+  return next;
+}
+
 function Button(props: any) {
   return (
     <div class="col-sm-6 smallpad">
@@ -75,6 +92,7 @@ function Button(props: any) {
 function App() {
   let data: { id: number; label: string }[] = $state([]);
   let selected: number | null = $state(null);
+
   const run = () => {
     data = buildData(1000);
     selected = null;
@@ -90,7 +108,7 @@ function App() {
   };
 
   const update = () => {
-    data = data.map((row, i) => (i % 10 === 0 ? { ...row, label: row.label + " !!!" } : row));
+    data = updateEvery10Rows(data);
   };
 
   const swapRows = () => {
@@ -109,7 +127,8 @@ function App() {
   };
 
   const remove = (id: number) => {
-    data = data.filter((row) => row.id !== id);
+    const next = removeById(data, id);
+    if (next !== data) data = next;
     if (selected === id) {
       selected = null;
     }

@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   entry: "./src/main.tsx",
@@ -18,12 +19,24 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@fictjs/babel-preset"],
+            presets: [
+              [
+                "@fictjs/babel-preset",
+                {
+                  dev: false,
+                },
+              ],
+            ],
           },
         },
       },
     ],
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      __DEV__: "false",
+    }),
+  ],
   devServer: {
     static: {
       directory: path.resolve(__dirname),
