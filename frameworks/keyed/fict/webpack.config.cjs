@@ -27,6 +27,8 @@ module.exports = {
                   // Benchmark fixture intentionally uses snapshot-style helpers;
                   // avoid fail-closed strict guarantee diagnostics in perf builds.
                   strictGuarantee: false,
+                  // Avoid writing sidecar metadata files in benchmark builds.
+                  emitModuleMetadata: false,
                 },
               ],
             ],
