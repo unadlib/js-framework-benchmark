@@ -24,6 +24,9 @@ module.exports = {
                 "@fictjs/babel-preset",
                 {
                   dev: false,
+                  // Benchmark fixture intentionally uses snapshot-style helpers;
+                  // avoid fail-closed strict guarantee diagnostics in perf builds.
+                  strictGuarantee: false,
                 },
               ],
             ],
